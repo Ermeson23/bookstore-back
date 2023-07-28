@@ -1,11 +1,28 @@
 package com.ermeson.bookstore.domain;
 
-public class Book {
+import java.io.Serializable;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Book implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String title;
     private String authorName;
     private String text;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Integer getId() {
