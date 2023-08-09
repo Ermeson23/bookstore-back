@@ -5,8 +5,8 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ermeson.bookstore.domain.Book;
-import com.ermeson.bookstore.domain.Category;
+import com.ermeson.bookstore.model.Book;
+import com.ermeson.bookstore.model.Category;
 import com.ermeson.bookstore.repositories.BookRepository;
 import com.ermeson.bookstore.repositories.CategoryRepository;
 

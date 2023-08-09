@@ -1,4 +1,4 @@
-package com.ermeson.bookstore.domain;
+package com.ermeson.bookstore.model;
 
 import java.io.Serializable;
 
