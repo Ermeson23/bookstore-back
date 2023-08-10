@@ -30,6 +30,9 @@ public class Category implements Serializable {
         this.description = description;
     }
 
+    public Category() {
+    }
+
     public Integer getId() {
         return id;
     }

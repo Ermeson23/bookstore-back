@@ -2,6 +2,8 @@ package com.ermeson.bookstore.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class Book implements Serializable {
     private String authorName;
     private String text;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -31,6 +34,10 @@ public class Book implements Serializable {
         this.authorName = authorName;
         this.text = text;
         this.category = category;
+    }
+
+    public Book() {
+        
     }
 
     public Integer getId() {
