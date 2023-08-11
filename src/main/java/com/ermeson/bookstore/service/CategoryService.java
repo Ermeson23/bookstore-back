@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ermeson.bookstore.dto.CategoryDTO;
 import com.ermeson.bookstore.exceptions.ObjectNotFoundException;
 import com.ermeson.bookstore.model.Category;
 import com.ermeson.bookstore.repositories.CategoryRepository;
@@ -28,6 +29,13 @@ public class CategoryService {
 
     public Category create(Category category) {
         category.setId(null);
+        return categoryRepository.save(category);
+    }
+
+    public Category update(Integer id, CategoryDTO categoryDTO) {
+        Category category = findById(id);
+        category.setName(categoryDTO.getName());
+        category.setDescription(categoryDTO.getDescription());
         return categoryRepository.save(category);
     }
     
