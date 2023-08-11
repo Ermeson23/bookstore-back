@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,12 @@ public class CategoryService {
 
     public void delete(Integer id) {
         findById(id);
-        categoryRepository.deleteById(id);
+        try {
+            categoryRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new com.ermeson.bookstore.exceptions.DataIntegrityViolationException(
+                "Esta categoria não pode ser deletada, pois possui livros associados!");
+        }
     }
     
 }
