@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ermeson.bookstore.exceptions.ObjectNotFoundException;
 import com.ermeson.bookstore.model.Book;
+import com.ermeson.bookstore.model.Category;
 import com.ermeson.bookstore.repositories.BookRepository;
 
 @Service
@@ -41,6 +42,13 @@ public class BookService {
         newBook.setTitle(book.getTitle());
         newBook.setAuthorName(book.getAuthorName());
         newBook.setText(book.getText());
+    }
+
+    public Book create(Integer id_cat, Book book) {
+        book.setId(null);
+        Category cat = categoryService.findById(id_cat);
+        book.setCategory(cat);
+        return bookRepository.save(book);
     }
 
 }
