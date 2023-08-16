@@ -20,6 +20,13 @@ public class BookService {
     @Autowired
     private CategoryService categoryService;
 
+    public Book create(Integer id_cat, Book book) {
+        book.setId(null);
+        Category cat = categoryService.findById(id_cat);
+        book.setCategory(cat);
+        return bookRepository.save(book);
+    }
+
     public Book findById(Integer id) {
         Optional<Book> book = bookRepository.findById(id);
         return book.orElseThrow(() -> new ObjectNotFoundException(
@@ -44,11 +51,9 @@ public class BookService {
         newBook.setText(book.getText());
     }
 
-    public Book create(Integer id_cat, Book book) {
-        book.setId(null);
-        Category cat = categoryService.findById(id_cat);
-        book.setCategory(cat);
-        return bookRepository.save(book);
+    public void delete(Integer id) {
+        Book book = findById(id);
+        bookRepository.delete(book);
     }
 
 }
