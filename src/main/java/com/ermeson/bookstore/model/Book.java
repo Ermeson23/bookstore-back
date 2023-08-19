@@ -2,6 +2,8 @@ package com.ermeson.bookstore.model;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -10,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Book implements Serializable {
@@ -19,8 +22,17 @@ public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @NotEmpty(message = "O campo TÍTULO é obrigatório")
+    @Length(min = 3, max = 50, message = "O campo TÍTULO deve ter entre 3 a 50 caracteres")
     private String title;
+
+    @NotEmpty(message = "O campo NOME_DO_AUTOR é obrigatório")
+    @Length(min = 3, max = 50, message = "O campo NOME_DO_AUTOR deve ter entre 3 a 50 caracteres")
     private String authorName;
+
+    @NotEmpty(message = "O campo TEXTO é obrigatório")
+    @Length(min = 10, max = 2000000, message = "O campo TEXTO deve ter entre 10 a 2.000.000 caracteres")
     private String text;
 
     @JsonIgnore

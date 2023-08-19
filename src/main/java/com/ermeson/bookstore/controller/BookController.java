@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,6 +23,9 @@ import com.ermeson.bookstore.dto.BookDTO;
 import com.ermeson.bookstore.model.Book;
 import com.ermeson.bookstore.service.BookService;
 
+import jakarta.validation.Valid;
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/books")
 public class BookController {
@@ -31,7 +35,7 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Book> create(@RequestParam(value = "category", defaultValue = "0") Integer id_cat,
-    @RequestBody Book book) {
+    @Valid @RequestBody Book book) {
         Book newBook = bookService.create(id_cat, book);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/books/{id}").buildAndExpand(newBook.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -51,13 +55,13 @@ public class BookController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Book> update(@PathVariable Integer id, @RequestBody Book book ) {
+    public ResponseEntity<Book> update(@PathVariable Integer id, @Valid @RequestBody Book book ) {
         Book newBook = bookService.update(id, book);
         return ResponseEntity.ok().body(newBook);
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Book> updatePatch(@PathVariable Integer id, @RequestBody Book book ) {
+    public ResponseEntity<Book> updatePatch(@PathVariable Integer id, @Valid @RequestBody Book book ) {
         Book newBook = bookService.update(id, book);
         return ResponseEntity.ok().body(newBook);
     }

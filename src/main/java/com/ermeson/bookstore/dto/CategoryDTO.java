@@ -2,14 +2,24 @@ package com.ermeson.bookstore.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.ermeson.bookstore.model.Category;
+
+import jakarta.validation.constraints.NotEmpty;
 
 public class CategoryDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     private Integer id;
+
+    @NotEmpty(message = "O campo NOME é obrigatório")
+    @Length(min = 3, max = 100, message = "O campo NOME deve ter entre 3 a 100 caracteres")
     private String name;
+
+    @NotEmpty(message = "O campo DESCRIÇÃO é obrigatório")
+    @Length(min = 5, max = 200, message = "O campo DESCRIÇÃO deve ter entre 5 a 200 caracteres")
     private String description;
 
     public CategoryDTO() {
